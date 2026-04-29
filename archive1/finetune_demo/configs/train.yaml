@@ -1,0 +1,21 @@
+data_config:
+  train_file: ../data/train.jsonl
+  val_file: null # 没有验证集可以设为null
+  num_proc: 1
+
+max_input_length: 512
+max_output_length: 512
+combine: false # 代码中处理逻辑较复杂，建议先设为false
+
+training_args:
+  output_dir: ./output
+  per_device_train_batch_size: 1 # 根据你的显存调整，显存小就设为1
+  gradient_accumulation_steps: 8 # 梯度累积，用来模拟大Batch Size
+  num_train_epochs: 3
+  learning_rate: 2e-4
+  logging_steps: 10
+  save_steps: 100
+  evaluation_strategy: no # 如果没有验证集，设为no
+  report_to: none # 不连接wandb等
+  fp16: true # 开启混合精度训练，节省显存
+  remove_unused_columns: false

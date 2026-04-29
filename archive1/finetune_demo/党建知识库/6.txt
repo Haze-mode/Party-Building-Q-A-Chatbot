@@ -1,0 +1,2 @@
+python finetune1.py ./data /root/autodl-tmp/glm-4-9b-chat/ ./configs/lora1.yaml
+conda activate py310_chat

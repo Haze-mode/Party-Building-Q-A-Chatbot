@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基于GLM-4的党建知识智能问答系统 - 项目介绍</title>
+    <style>
+        :root {
+            --red: #C91F37;
+            --text: #333;
+            --bg: #f8f8f8;
+            --card-bg: #fff;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 顶部导航 */
+        .top-bar {
+            background: var(--red);
+            padding: 12px 20px;
+        }
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .top-bar a:hover {
+            opacity: 1;
+        }
+
+        /* 标题区 */
+        .header {
+            background: linear-gradient(135deg, #C91F37 0%, #a0152a 100%);
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 1em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 内容区 */
+        .section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+        .section h2 {
+            font-size: 1.3em;
+            color: var(--red);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--red);
+        }
+        .section h3 {
+            font-size: 1.05em;
+            margin: 20px 0 10px;
+            color: #555;
+        }
+        .section p {
+            margin-bottom: 12px;
+        }
+        .section ul, .section ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        .section li {
+            margin-bottom: 6px;
+        }
+
+        /* 架构图文本版 */
+        .arch-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 13px;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            line-height: 1.6;
+            white-space: pre;
+        }
+
+        /* 表格 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f5f0f0;
+            font-weight: 600;
+        }
+
+        /* 不足区块 */
+        .limitations {
+            background: #fff9f0;
+            border-left: 4px solid #e6a817;
+        }
+
+        /* 链接按钮 */
+        .btn {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background: #a0152a;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.4em;
+            }
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="index.html">← 返回聊天</a>
+    </div>
+
+    <div class="header">
+        <h1>基于GLM-4的党建知识智能问答系统</h1>
+        <p>毕业设计项目 · 模型微调 + 知识库检索增强 + Web全栈实现</p>
+    </div>
+
+    <div class="container">
+
+        <!-- 项目概述 -->
+        <div class="section">
+            <h2>项目概述</h2>
+            <p>本项目设计并实现了一个面向党建领域的智能问答系统。核心思路是采用<strong>模型微调 + 知识库检索增强（RAG）</strong>双重机制：通过LoRA微调让GLM-4-9B-Chat掌握党建专业术语和规范表述风格，通过知识库检索为模型提供最新政策文件原文作为回答依据，两者互补，兼顾专业性与时效性。</p>
+            <p>系统采用前后端分离架构，后端基于Tornado异步框架，前端为原生HTML/CSS/JavaScript实现，包含用户认证、多轮对话、知识库管理、会话管理和缓存优化等完整功能模块。</p>
+        </div>
+
+        <!-- 项目组成 -->
+        <div class="section">
+            <h2>项目组成</h2>
+            <table>
+                <tr>
+                    <th>子项目</th>
+                    <th>说明</th>
+                </tr>
+                <tr>
+                    <td><code>demo/</code></td>
+                    <td>Tornado后端服务，包含RAG引擎、知识库检索、LRU缓存、用户认证、RESTful API</td>
+                </tr>
+                <tr>
+                    <td><code>chatbot_html-master/</code></td>
+                    <td>前端界面，聊天页、登录页、知识库管理后台，党建红色主题风格</td>
+                </tr>
+                <tr>
+                    <td><code>archive1/finetune_demo/</code></td>
+                    <td>模型微调管线，数据集构建、LoRA训练脚本、评估代码、配置文件</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 架构 -->
+        <div class="section">
+            <h2>系统架构</h2>
+            <div class="arch-block">
+                用户浏览器
+                  │
+                  │  HTTP POST (JSON)
+                  │
+            ┌─────▼──────────────────────┐
+            │   Tornado Web Server       │
+            │   ├─ 认证中间件 (Token)     │
+            │   ├─ 路由分发              │
+            │   └─ 异常处理              │
+            └─────┬──────────────────────┘
+                  │
+            ┌─────▼──────────────────────┐
+            │   RAG 引擎 (Chat Engine)   │
+            │   ├─ 会话管理 (session_id) │
+            │   ├─ 提示词拼接            │
+            │   └─ 缓存查询/写入         │
+            └──┬────────────┬───────────┘
+               │            │
+      ┌────────▼───┐  ┌────▼───────────┐
+      │ 知识库检索  │  │ 模型推理       │
+      │ TF-IDF     │  │ GLM-4-9B-Chat  │
+      │ 文档解析   │  │ + LoRA Adapter │
+      │ 分块索引   │  │ FP16 / KV Cache│
+      └────────────┘  └────────────────┘
+            </div>
+        </div>
+
+        <!-- 核心模块 -->
+        <div class="section">
+            <h2>核心模块实现</h2>
+
+            <h3>1. 模型微调（LoRA）</h3>
+            <ul>
+                <li>基座模型：GLM-4-9B-Chat</li>
+                <li>微调方法：LoRA，秩 r=16，仅训练 0.11% 参数（约1081万 / 94亿）</li>
+                <li>训练数据：数百条党建领域对话样本，覆盖党章党规、党史、政策解读、党务工作</li>
+                <li>数据格式：system/user/assistant 角色化多轮对话，system 设为"党建知识专家"</li>
+                <li>训练配置：800步，有效批次8，学习率5e-5，warmup+cosine衰减，梯度检查点+梯度累积</li>
+                <li>评估方式：Jieba分词后的ROUGE-1/2/L和BLEU-4自动评估 + 人工定性对比</li>
+                <li>最终模型：checkpoint-600（验证集ROUGE-1=4.42, ROUGE-L=1.34）</li>
+            </ul>
+
+            <h3>2. 知识库检索</h3>
+            <ul>
+                <li>支持格式：PDF、Word (DOCX)、TXT</li>
+                <li>文档解析：PyPDFLoader + python-docx + 直接读取</li>
+                <li>分块策略：段落优先切分，超长段落按512字符递归切分，相邻块重叠50字符</li>
+                <li>检索算法：scikit-learn TfidfVectorizer 构建词项-文档权重矩阵</li>
+                <li>相似度计算：查询向量与文档向量的点积，返Top-K（默认K=3）</li>
+                <li>索引更新：管理员触发全量重载（重新解析所有文档并重建索引）</li>
+                <li><strong>架构预留</strong>：代码中已实现FAISS向量检索逻辑，换用带完整编译链的环境可直接启用</li>
+            </ul>
+
+            <h3>3. 缓存系统</h3>
+            <ul>
+                <li>两个独立LRU缓存：检索缓存（容量1000）+ 回答缓存（容量500）</li>
+                <li>实现：OrderedDict + MD5哈希键 + TTL过期（默认3600秒）</li>
+                <li>后台定时清理过期条目，知识库更新时主动清空全量缓存</li>
+                <li>效果：缓存命中后响应时间从6-10秒降至0.2秒以内</li>
+            </ul>
+
+            <h3>4. 会话管理</h3>
+            <ul>
+                <li>以session_id为键在内存中维护对话状态，与用户认证解耦</li>
+                <li>支持游客模式（guest_前缀），登录用户以用户名为session_id</li>
+                <li>多轮对话：保留最近10轮历史，按"系统消息→历史→当前问题"拼接</li>
+                <li>TTL=3600秒，后台每10分钟清理过期会话</li>
+            </ul>
+
+            <h3>5. Web服务与前端</h3>
+            <ul>
+                <li>后端：Tornado异步框架，监听6006端口，提供RESTful API</li>
+                <li>认证：UUID Token + SHA256密码哈希，游客/普通用户/管理员三级权限</li>
+                <li>前端：三个页面（聊天、登录、知识库管理），党建红色主题，响应式布局</li>
+                <li>功能：多轮对话、会话历史查看、导出DOC、流式输出（SSE）</li>
+                <li>Mock模式：无需GPU即可跑通前后端联调，返回预设模拟回答</li>
+            </ul>
+        </div>
+
+        <!-- 微调训练过程 -->
+        <div class="section">
+            <h2>微调训练过程</h2>
+            <table>
+                <tr>
+                    <th>训练步数</th>
+                    <th>训练Loss</th>
+                    <th>验证ROUGE-1</th>
+                    <th>验证ROUGE-L</th>
+                </tr>
+                <tr><td>200</td><td>0.191</td><td>2.97</td><td>0.63</td></tr>
+                <tr><td>400</td><td>0.0085</td><td>4.39</td><td>1.32</td></tr>
+                <tr><td>600</td><td>0.0035</td><td>4.42</td><td>1.34</td></tr>
+                <tr><td>800</td><td>0.0033</td><td>0.078</td><td>0.022</td></tr>
+            </table>
+            <p style="font-size: 13px; color: #888;">训练观察到典型的小样本过拟合现象：验证集指标在第600步达到峰值后大幅下降，训练Loss在后期趋近于零，说明模型开始记忆训练样本。最终选取checkpoint-600作为最优模型。</p>
+        </div>
+
+        <!-- API接口 -->
+        <div class="section">
+            <h2>API接口</h2>
+            <table>
+                <tr><th>接口</th><th>方法</th><th>功能</th><th>权限</th></tr>
+                <tr><td>/api/login</td><td>POST</td><td>用户登录</td><td>公开</td></tr>
+                <tr><td>/api/logout</td><td>POST</td><td>用户登出</td><td>已登录</td></tr>
+                <tr><td>/api/chatbot</td><td>POST</td><td>智能问答</td><td>已登录/游客</td></tr>
+                <tr><td>/api/session/history</td><td>GET</td><td>获取会话历史</td><td>已登录/游客</td></tr>
+                <tr><td>/api/session/clear</td><td>GET</td><td>清空会话</td><td>已登录/游客</td></tr>
+                <tr><td>/api/kb/files</td><td>GET</td><td>知识库文件列表</td><td>管理员</td></tr>
+                <tr><td>/api/kb/upload</td><td>POST</td><td>上传文件</td><td>管理员</td></tr>
+                <tr><td>/api/kb/reload</td><td>POST</td><td>重载索引</td><td>管理员</td></tr>
+            </table>
+        </div>
+
+        <!-- 已知局限 -->
+        <div class="section limitations">
+            <h2>已知局限与改进方向</h2>
+            <ol>
+                <li><strong>训练数据规模有限</strong>：数百条样本训练800步（约22个epoch）导致过拟合，验证集指标在600步后骤降。后续需扩充数据、引入早停机制。</li>
+                <li><strong>FAISS未成功部署</strong>：因运行环境缺少编译依赖，当前线上使用TF-IDF关键词检索。代码中已实现FAISS检索逻辑，换环境可启用。</li>
+                <li><strong>TF-IDF语义理解局限</strong>：基于词面匹配，对同义词和复杂长查询效果有限，后续可升级为Embedding稠密向量检索（如BGE + FAISS）。</li>
+                <li><strong>自动评估指标不理想</strong>：ROUGE/BLEU在党建领域区分度低（BLEU-4最高仅0.0013），当前主要依赖人工定性评估，后续需引入BERTScore等语义相似度指标。</li>
+                <li><strong>知识库覆盖范围有限</strong>：当前仅包含基础党建文献，需持续扩充。</li>
+                <li><strong>容器化未完成</strong>：项目在AutoDL上直接运行，未编写Dockerfile。</li>
+                <li><strong>缓存细粒度失效未实现</strong>：当前采用全量清空策略，可优化为仅清除受影响条目。</li>
+            </ol>
+        </div>
+
+        <!-- 运行方式 -->
+        <div class="section">
+            <h2>运行方式</h2>
+            <div class="arch-block">
+# 1. 安装依赖
+pip install -r requirements.txt
+
+# 2. Mock模式启动（无需GPU，用于调试）
+python web_server.py --mock
+
+# 3. 真实模型模式（需GPU + GLM-4权重）
+python web_server.py
+
+# 4. 访问
+http://localhost:6006
+            </div>
+        </div>
+
+        <!-- 链接 -->
+        <div class="section" style="text-align: center;">
+            <a href="index.html" class="btn">在线体验</a>
+            <a href="https://github.com/你的用户名/仓库名" class="btn" style="background: #333;">GitHub 源码</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

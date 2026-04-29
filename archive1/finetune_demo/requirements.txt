@@ -1,0 +1,7 @@
+jieba
+datasets
+peft
+deepspeed
+nltk
+rouge_chinese
+ruamel.yaml

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>登录 - 党建知识问答</title>
+    <link rel="stylesheet" type="text/css" href="chatCss/chat.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #C91F37 0%, #8B0000 50%, #5C0000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 背景装饰 */
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .login-box {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            z-index: 1;
+            border-top: 5px solid #C91F37;
+        }
+        
+        /* 党徽装饰 */
+        .party-emblem {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .party-emblem svg {
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 2px 8px rgba(201, 31, 55, 0.3));
+        }
+        
+        .login-title {
+            text-align: center;
+            color: #C91F37;
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .login-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #C91F37, transparent);
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .form-group label::before {
+            content: '◆';
+            color: #C91F37;
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #C91F37;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(201, 31, 55, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #C91F37 0%, #8B0000 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201, 31, 55, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .error-message {
+            color: #f44336;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 6px;
+            display: none;
+        }
+        
+        .guest-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .guest-link a {
+            color: #C91F37;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .guest-link a:hover {
+            color: #8B0000;
+            text-decoration: underline;
+        }
+        
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="party-emblem">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#C91F37"/>
+                    <path d="M50 15 L55 35 L75 35 L60 47 L65 67 L50 55 L35 67 L40 47 L25 35 L45 35 Z" fill="#FFD700"/>
+                    <circle cx="50" cy="50" r="8" fill="#FFD700"/>
+                </svg>
+            </div>
+            <h2 class="login-title">党建知识问答</h2>
+            <p class="login-subtitle">不忘初心 · 牢记使命</p>
+            <div class="divider"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" placeholder="请输入用户名" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" placeholder="请输入密码" required />
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">登 录</button>
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+            <div class="guest-link">
+                <a href="index.html?guest=true">👤 以游客身份体验</a>
+            </div>
+            <div class="footer-text">© 2026 党建知识学习平台</div>
+        </div>
+    </div>
+    <script src="chatJs/jquery.min.js"></script>
+    <script src="chatJs/auth.js"></script>
+</body>
+</html>

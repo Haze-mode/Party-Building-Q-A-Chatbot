@@ -1,0 +1,45 @@
+combine: false
+data_config:
+  train_file: train.jsonl
+  val_file: dev.jsonl
+  test_file: dev.jsonl
+  num_proc: 1
+max_input_length: 512
+max_output_length: 512
+training_args:
+  # see `transformers.Seq2SeqTrainingArguments`
+  output_dir: ./output
+  max_steps: 800
+  learning_rate: 5e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  dataloader_num_workers: 8
+  remove_unused_columns: false
+  save_strategy: steps
+  save_steps: 200
+  log_level: info
+  logging_strategy: steps
+  logging_steps: 10
+  per_device_eval_batch_size: 4
+  evaluation_strategy: steps
+  eval_steps: 200
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_rouge-l"
+  greater_is_better: true
+  save_total_limit: 3
+  adam_epsilon: 1e-6
+  optim: "adamw_torch"
+  predict_with_generate: true
+  generation_config:
+    max_new_tokens: 512
+  fp16: false
+  bf16: true
+peft_config:
+  peft_type: LORA
+  task_type: CAUSAL_LM
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: ["query_key_value", "dense"]
